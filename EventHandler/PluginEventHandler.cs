@@ -16,12 +16,16 @@ namespace AdvancedDoctorPlus.EventHandler
         {
             SynEvents.Get.Player.PlayerSetClassEvent += Player_PlayerSetClassEvent;
             SynEvents.Get.Player.PlayerDeathEvent += Player_PlayerDeathEvent;
+            SynEvents.Get.Round.RoundEndEvent += Round_RoundEndEvent;
 
             runningCoroutines = new List<CoroutineHandle>();
             Doctors = new HashSet<DoctorStats>();
 
             runningCoroutines.Add(Timing.RunCoroutine(HealInRange()));
         }
+
+        private void Round_RoundEndEvent()
+            => runningCoroutines.ForEach((_) => Timing.KillCoroutines(_));
 
         private void Player_PlayerDeathEvent(PlayerDeathEventArgs ev)
         {
@@ -55,7 +59,6 @@ namespace AdvancedDoctorPlus.EventHandler
 
                             foreach (var player in players)
                             {
-                                SynapseController.Server.Logger.Info(player.DisplayName);
                                 if ((player.Health + AdvancedDoctorPlus.Config.Scp049Healing.Scp049HealingAmount) >= player.MaxHealth)
                                     player.Health = player.MaxHealth;
                                 else

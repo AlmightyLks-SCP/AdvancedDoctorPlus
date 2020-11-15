@@ -52,8 +52,11 @@ namespace AdvancedDoctorPlus.Command
             else
             {
                 SpawnZombieStorm(context.Player);
+
+                stats.Streak -= AdvancedDoctorPlus.Config.Scp049ZombieStorm.Scp049RequiredStreak;
+
                 result.State = CommandResultState.Error;
-                result.Message = $"Not enough kills. {stats.Streak}/{AdvancedDoctorPlus.Config.Scp049ZombieStorm.Scp049RequiredStreak}.";
+                result.Message = $"Done.";
             }
 
             return result;
