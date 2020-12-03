@@ -29,6 +29,10 @@ namespace AdvancedDoctorPlus.EventHandler
 
         private void Player_PlayerDeathEvent(PlayerDeathEventArgs ev)
         {
+            //If either the killer or the victim is null (Potential damage inflicted by Server)
+            if (ev.Killer is null || ev.Victim is null)
+                return;
+
             if (ev.Victim.RoleType == RoleType.Scp049)
                 Doctors.RemoveWhere((_) => _.Player == ev.Victim);
 

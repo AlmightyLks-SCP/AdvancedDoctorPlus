@@ -1,6 +1,6 @@
 ﻿using Synapse.Api;
 
-namespace AdvancedDoctorPlus
+namespace AdvancedDoctorPlus.Helper
 {
     public class DoctorStats
     {
